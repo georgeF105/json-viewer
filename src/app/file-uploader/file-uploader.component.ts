@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WebworkerService } from '../webworker/webworker.service';
 
 @Component({
   selector: 'app-file-uploader',
@@ -8,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 export class FileUploaderComponent implements OnInit {
   public json: any;
 
-  constructor() { }
+  constructor(
+    private _webworkerService: WebworkerService
+  ) { }
 
   ngOnInit() {
   }
@@ -29,11 +32,12 @@ export class FileUploaderComponent implements OnInit {
     return event => {
       const { result } = event.target;
 
-      const object = JSON.parse(result);
 
-      console.log('file uploaded result', object);
-      this.json = object;
-
+      this._webworkerService.parseString(result)
+        .then(response => {
+          console.log('got response in component', response);
+          this.json = response;
+        });
     };
   }
 
