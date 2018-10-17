@@ -1,0 +1,10 @@
+<h2>
+  viewer
+</h2>
+<ul
+  *ngIf="currentFile$ | async as currentFile">
+  <li
+    *ngFor="let item of currentFile | keyvalue">
+    {{ item.key }}
+  </li>
+</ul>

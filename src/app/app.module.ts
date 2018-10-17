@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { FileUploaderModule } from './file-uploader/file-uploader.module';
+import { ViewerModule } from './viewer/viewer.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { FileUploaderModule } from './file-uploader/file-uploader.module';
   ],
   imports: [
     BrowserModule,
-    FileUploaderModule
+    FileUploaderModule,
+    ViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

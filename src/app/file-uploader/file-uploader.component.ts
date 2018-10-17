@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WebworkerService } from '../webworker/webworker.service';
+import { ViewerService } from '../viewer/viewer.service';
 
 @Component({
   selector: 'app-file-uploader',
@@ -7,17 +8,14 @@ import { WebworkerService } from '../webworker/webworker.service';
   styleUrls: ['./file-uploader.component.scss']
 })
 export class FileUploaderComponent implements OnInit {
-  public json: any;
-
   constructor(
-    private _webworkerService: WebworkerService
+    private _viewerService: ViewerService
   ) { }
 
   ngOnInit() {
   }
 
   public fileChange (event): void {
-    console.log('event', event);
     const { files } = event.target;
 
     if (files.length) {
@@ -31,13 +29,7 @@ export class FileUploaderComponent implements OnInit {
   private onFileUploaded (file: File): any {
     return event => {
       const { result } = event.target;
-
-
-      this._webworkerService.parseString(result)
-        .then(response => {
-          console.log('got response in component', response);
-          this.json = response;
-        });
+      this._viewerService.onNewFileUploaded(result);
     };
   }
 
