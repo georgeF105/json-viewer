@@ -1,0 +1,22 @@
+<ul
+  *ngIf="isObjectType(child); else primitive">
+  <li
+    *ngFor="let item of child | keyvalue">
+    <span>{{item.key}}</span>
+    <button
+      *ngIf="child[item.key]"
+      (click)="item.show = !item.show">
+      {{ item.show ? '-' : '+' }}
+    </button>
+    <app-children-viewer
+      *ngIf="item.show"
+      [child]="child[item.key]">
+    </app-children-viewer>
+  </li>
+</ul>
+<ng-template
+  #primitive>
+  <div>
+    {{child}}
+  </div>
+</ng-template>
