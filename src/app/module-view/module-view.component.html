@@ -1,0 +1,23 @@
+<div
+  *ngIf="currentModule$ | async as currentModule">
+  <p>{{ currentModule.name }}</p>
+  <br>
+  <span>Children:</span>
+  <ul>
+    <li
+      *ngFor="let child of currentModule.children | keyvalue">
+      <a
+        routerLink
+        [queryParams]="{ moduleId: child.key }">{{ child.key + ':' + child.value }}</a>
+    </li>
+  </ul>
+  <span>Reasons:</span>
+  <ul>
+    <li
+      *ngFor="let reason of currentModule.reasons">
+      <a
+        routerLink
+        [queryParams]="{ moduleId: reason.moduleId }">{{ reason.userRequest }}</a>
+    </li>
+  </ul>
+</div>
