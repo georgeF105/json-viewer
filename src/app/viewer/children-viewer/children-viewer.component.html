@@ -2,16 +2,27 @@
   *ngIf="isObjectType(child); else primitive">
   <li
     *ngFor="let item of child | keyvalue">
-    <span>{{item.key}}</span>
-    <button
-      *ngIf="child[item.key]"
-      (click)="item.show = !item.show">
-      {{ item.show ? '-' : '+' }}
-    </button>
-    <app-children-viewer
-      *ngIf="item.show"
-      [child]="child[item.key]">
-    </app-children-viewer>
+    <ng-container
+      *ngIf="item.key === 'moduleId'; else children">
+      <a
+        routerLink
+        [queryParams]="{ moduleId: item.value }">
+        {{ item.key + ':' + item.value }}
+      </a>
+    </ng-container>
+    <ng-template
+      #children>
+      <span>{{item.key}}</span>
+      <button
+        *ngIf="child[item.key]"
+        (click)="item.show = !item.show">
+        {{ item.show ? '-' : '+' }}
+      </button>
+      <app-children-viewer
+        *ngIf="item.show"
+        [child]="child[item.key]">
+      </app-children-viewer>
+    </ng-template>
   </li>
 </ul>
 <ng-template
